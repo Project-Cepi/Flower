@@ -4,6 +4,7 @@ import net.minestom.server.command.builder.arguments.ArgumentType
 import world.cepi.kepi.Kepi
 import world.cepi.kepi.item.AddCreationalItem
 import world.cepi.kepi.item.CreationalItemResult
+import world.cepi.kepi.messages.sendFormattedTranslatableMessage
 import world.cepi.kstom.command.arguments.defaultValue
 import world.cepi.kstom.command.arguments.literal
 import world.cepi.kstom.command.kommand.Kommand
@@ -29,6 +30,7 @@ object FlowerCommand : Kommand({
     syntax(create) {
         AddCreationalItem.put(player, FlowerItem().toItem())
 
+        player.sendFormattedTranslatableMessage("flower", "create")
         player.playSound(Kepi.newItemSound)
     }
 
@@ -38,6 +40,7 @@ object FlowerCommand : Kommand({
             flower.add(FlowerBlock(blockContext.get(block), blockContext.get(chance)))
         }.toItem())
 
+        player.sendFormattedTranslatableMessage("flower", "create")
         player.playSound(Kepi.newItemSound)
     }
 
@@ -61,7 +64,7 @@ object FlowerCommand : Kommand({
         val flower = player.itemInMainHand.flower ?: return@syntax
 
         player.itemInMainHand = flower.add(FlowerBlock(!block)).toItem()
-
+        
         player.playSound(Kepi.editItemSound)
     }
 
